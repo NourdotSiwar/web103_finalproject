@@ -30,21 +30,28 @@ Add a new food item to the library
 Edit an existing food item
 
 ## Wireframes 
-[Interactive Figma Design](https://www.figma.com/make/1HEdImibp2i2lflDlicCpb/MacroMate-Nutrition-Tracking-App?t=UMLwqZDnTx3YiGzy-1)
 
+## Wireframe 1: Home
 
+[/](https://www.figma.com/make/1HEdImibp2i2lflDlicCpb/MacroMate-Nutrition-Tracking-App?p=f&t=zDdLak5Ftp3TzvMc-0)
 
+## Wireframe 2: Goals
 
-## Wireframe 1: [page title]
+[/goals](https://www.figma.com/make/1HEdImibp2i2lflDlicCpb/MacroMate-Nutrition-Tracking-App?p=f&t=zDdLak5Ftp3TzvMc-0&preview-route=%2Fgoals
+)
 
-[👉🏾👉🏾👉🏾 include wireframe 1]
+## Wireframe 3: Meals
 
-## Wireframe 2: [page title]
+[/meals](https://www.figma.com/make/1HEdImibp2i2lflDlicCpb/MacroMate-Nutrition-Tracking-App?p=f&t=zDdLak5Ftp3TzvMc-0&preview-route=%2Fmeals)
 
-[👉🏾👉🏾👉🏾 include wireframe 2]
+## Wireframe 4: New Meals
 
-## Wireframe 3: [page title]
+[/meals/new](https://www.figma.com/make/1HEdImibp2i2lflDlicCpb/MacroMate-Nutrition-Tracking-App?p=f&t=zDdLak5Ftp3TzvMc-0&preview-route=%2Fmeals%2Fnew)
 
-[👉🏾👉🏾👉🏾 include wireframe 3]
+## Wireframe 5: Foods
 
-[👉🏾👉🏾👉🏾 include more wireframes as desired]
+[/foods](https://www.figma.com/make/1HEdImibp2i2lflDlicCpb/MacroMate-Nutrition-Tracking-App?p=f&t=zDdLak5Ftp3TzvMc-0&preview-route=%2Ffoods)
+
+## Wireframe 6: New Food Items
+
+[/foods/new](https://www.figma.com/make/1HEdImibp2i2lflDlicCpb/MacroMate-Nutrition-Tracking-App?p=f&t=zDdLak5Ftp3TzvMc-0&preview-route=%2Ffoods%2Fnew)
