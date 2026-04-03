@@ -30,7 +30,7 @@ Add a new food item to the library
 Edit an existing food item
 
 ## Wireframes 
-![Interactive Figma Design](https://www.figma.com/make/1HEdImibp2i2lflDlicCpb/MacroMate-Nutrition-Tracking-App?t=UMLwqZDnTx3YiGzy-1)
+[Interactive Figma Design](https://www.figma.com/make/1HEdImibp2i2lflDlicCpb/MacroMate-Nutrition-Tracking-App?t=UMLwqZDnTx3YiGzy-1)
 
 
 
