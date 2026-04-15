@@ -99,77 +99,73 @@ const createMealFoodItemsTable = async () => {
 const seedUsersTable = async () => {
   await createUsersTable()
 
-  seedData.users.forEach((user) => {
+  for (const user of seedData.users) {
     const insertQuery = {
-      text: 'INSERT INTO users (goal, calorie_target, protein_target, carb_target, fat_target) VALUES ($1, $2, $3, $4, $5)'
+      text: 'INSERT INTO users (id, goal, calorie_target, protein_target, carb_target, fat_target) VALUES ($1, $2, $3, $4, $5, $6)'
     }
-    const values = [user.goal, user.calorie_target, user.protein_target, user.carb_target, user.fat_target]
+    const values = [user.id, user.goal, user.calorie_target, user.protein_target, user.carb_target, user.fat_target]
 
-    pool.query(insertQuery, values, (err) => {
-      if (err) {
-        console.error('⚠️ error inserting user', err)
-        return
-      }
+    try {
+      await pool.query(insertQuery, values)
       console.log(`✅ user (${user.goal}) added successfully`)
-    })
-  })
+    } catch (err) {
+      console.error('⚠️ error inserting user', err)
+    }
+  }
 }
 
 const seedFoodItemsTable = async () => {
   await createFoodItemsTable()
 
-  seedData.food_items.forEach((item) => {
+  for (const item of seedData.food_items) {
     const insertQuery = {
-      text: 'INSERT INTO food_items (name, calories, protein, carbs, fat, serving_unit) VALUES ($1, $2, $3, $4, $5, $6)'
+      text: 'INSERT INTO food_items (id, name, calories, protein, carbs, fat, serving_unit) VALUES ($1, $2, $3, $4, $5, $6, $7)'
     }
-    const values = [item.name, item.calories, item.protein, item.carbs, item.fat, item.serving_unit]
+    const values = [item.id, item.name, item.calories, item.protein, item.carbs, item.fat, item.serving_unit]
 
-    pool.query(insertQuery, values, (err) => {
-      if (err) {
-        console.error('⚠️ error inserting food item', err)
-        return
-      }
+    try {
+      await pool.query(insertQuery, values)
       console.log(`✅ ${item.name} added successfully`)
-    })
-  })
+    } catch (err) {
+      console.error('⚠️ error inserting food item', err)
+    }
+  }
 }
 
 const seedMealsTable = async () => {
   await createMealsTable()
 
-  seedData.meals.forEach((meal) => {
+  for (const meal of seedData.meals) {
     const insertQuery = {
-      text: 'INSERT INTO meals (user_id, name, date, notes) VALUES ($1, $2, $3, $4)'
+      text: 'INSERT INTO meals (id, user_id, name, date, notes) VALUES ($1, $2, $3, $4, $5)'
     }
-    const values = [meal.user_id, meal.name, meal.date, meal.notes]
+    const values = [meal.id, meal.user_id, meal.name, meal.date, meal.notes]
 
-    pool.query(insertQuery, values, (err) => {
-      if (err) {
-        console.error('⚠️ error inserting meal', err)
-        return
-      }
+    try {
+      await pool.query(insertQuery, values)
       console.log(`✅ ${meal.name} added successfully`)
-    })
-  })
+    } catch (err) {
+      console.error('⚠️ error inserting meal', err)
+    }
+  }
 }
 
 const seedMealFoodItemsTable = async () => {
   await createMealFoodItemsTable()
 
-  seedData.meal_food_items.forEach((entry) => {
+  for (const entry of seedData.meal_food_items) {
     const insertQuery = {
-      text: 'INSERT INTO meal_food_items (meal_id, food_item_id, quantity) VALUES ($1, $2, $3)'
+      text: 'INSERT INTO meal_food_items (id, meal_id, food_item_id, quantity) VALUES ($1, $2, $3, $4)'
     }
-    const values = [entry.meal_id, entry.food_item_id, entry.quantity]
+    const values = [entry.id, entry.meal_id, entry.food_item_id, entry.quantity]
 
-    pool.query(insertQuery, values, (err) => {
-      if (err) {
-        console.error('⚠️ error inserting meal_food_item', err)
-        return
-      }
+    try {
+      await pool.query(insertQuery, values)
       console.log(`✅ meal_food_item (meal ${entry.meal_id} + food ${entry.food_item_id}) added successfully`)
-    })
-  })
+    } catch (err) {
+      console.error('⚠️ error inserting meal_food_item', err)
+    }
+  }
 }
 
 // ─── RUN ─────────────────────────────────────────────────────────────────────
