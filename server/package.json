@@ -4,8 +4,10 @@
   "description": "",
   "main": "server.js",
   "type":"module",
-  "scripts": 
-  { "start": "npx nodemon server.js"},
+  "scripts": {
+    "start": "npm run reset && nodemon server.js",
+    "reset": "cd config && node reset.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC"
