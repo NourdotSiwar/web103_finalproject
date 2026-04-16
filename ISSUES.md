@@ -8,6 +8,8 @@
 
 ### Issue 1 – Implement Set Your Macro Goal
 
+## NOTE: For this specific issue, when you complete it, please go to readme.md and check off the feature by adding a ✅ emoji as well as adding a gif showing this feature's functionality.
+
 **Description**
 Users select a fitness goal (cut, bulk, or maintain) and input their daily calorie, protein, carb, and fat targets. These targets are used across the app to track progress.
 
@@ -24,6 +26,8 @@ Users select a fitness goal (cut, bulk, or maintain) and input their daily calor
 ---
 
 ### Issue 2 – Implement Food Item Library
+
+## NOTE: For this specific issue, when you complete it, please go to readme.md and check off the feature by adding a ✅ emoji as well as adding a gif showing this feature's functionality.
 
 **Description**
 Users can create, edit, and delete reusable food items. Each food item stores its name, calories, protein, carbs, fat, and serving unit (g, oz, cup, etc.). Editing and deleting should happen on the same page without navigating away.
@@ -43,6 +47,8 @@ Users can create, edit, and delete reusable food items. Each food item stores it
 
 ### Issue 3 – Implement Build a Meal
 
+## NOTE: For this specific issue, when you complete it, please go to readme.md and check off the feature by adding a ✅ emoji as well as adding a gif showing this feature's functionality.
+
 **Description**
 Users create a meal (e.g. "Breakfast", "Post-workout") and add food items to it with a specific quantity/serving. MacroMate auto-calculates the meal's total macros from its food items.
 
@@ -60,6 +66,8 @@ Users create a meal (e.g. "Breakfast", "Post-workout") and add food items to it 
 ---
 
 ### Issue 4 – Build Daily Macro Dashboard
+
+## NOTE: For this specific issue, when you complete it, please go to readme.md and check off the feature by adding a ✅ emoji as well as adding a gif showing this feature's functionality.
 
 **Description**
 A dashboard shows all meals logged for the day, the running macro totals, and progress bars comparing consumed vs. target for calories, protein, carbs, and fat.
@@ -84,6 +92,8 @@ A dashboard shows all meals logged for the day, the running macro totals, and pr
 
 ### Issue 5 – Build Meal History Log
 
+## NOTE: For this specific issue, when you complete it, please go to readme.md and check off the feature by adding a ✅ emoji as well as adding a gif showing this feature's functionality.
+
 **Description**
 Users can browse past meals by date to review what they ate and how their macros looked on any given day. Requires a dynamic route `/history/:date`.
 
@@ -102,6 +112,8 @@ Users can browse past meals by date to review what they ate and how their macros
 
 ### Issue 6 – Add Meal Macro Breakdown
 
+## NOTE: For this specific issue, when you complete it, please go to readme.md and check off the feature by adding a ✅ emoji as well as adding a gif showing this feature's functionality.
+
 **Description**
 Each meal displays a visual macro breakdown (percentage of calories from protein, carbs, and fat) so users can quickly spot imbalanced meals.
 
@@ -116,6 +128,8 @@ Each meal displays a visual macro breakdown (percentage of calories from protein
 ---
 
 ### Issue 7 – Add Remaining Macros Calculator
+
+## NOTE: For this specific issue, when you complete it, please go to readme.md and check off the feature by adding a ✅ emoji as well as adding a gif showing this feature's functionality.
 
 **Description**
 After logging meals, MacroMate shows how many calories and grams of each macro the user still has left for the day, helping them plan their next meal.
