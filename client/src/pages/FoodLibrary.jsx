@@ -7,15 +7,21 @@ const FoodLibrary = () => {
   const [search, setSearch] = useState('')
   const [editItem, setEditItem] = useState(null)
   const [deleteError, setDeleteError] = useState(null)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     fetchFoodItems()
   }, [])
 
   const fetchFoodItems = async () => {
-    const res = await fetch('/api/food-items')
-    const data = await res.json()
-    if (res.ok && Array.isArray(data)) setFoodItems(data)
+    try {
+      const res = await fetch('/api/food-items')
+      const data = await res.json()
+      if (res.ok && Array.isArray(data)) setFoodItems(data)
+      else setError('Failed to load food items. Please try again.')
+    } catch {
+      setError('Failed to load food items. Please try again.')
+    }
   }
 
   const handleDelete = async (id) => {
@@ -57,6 +63,8 @@ const FoodLibrary = () => {
           <button className="btn-primary">+ Add Food Item</button>
         </Link>
       </div>
+
+      {error && <p className="error-message">{error}</p>}
 
       <div className="card" style={{ marginBottom: 24 }}>
         <div className="search-wrapper">
