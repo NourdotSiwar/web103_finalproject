@@ -33,25 +33,24 @@ Edit an existing food item
 
 ## Wireframe 1: Home
 
-[/](https://www.figma.com/make/1HEdImibp2i2lflDlicCpb/MacroMate-Nutrition-Tracking-App?p=f&t=zDdLak5Ftp3TzvMc-0)
+[/](https://sync-botany-96419705.figma.site/)
 
 ## Wireframe 2: Goals
 
-[/goals](https://www.figma.com/make/1HEdImibp2i2lflDlicCpb/MacroMate-Nutrition-Tracking-App?p=f&t=zDdLak5Ftp3TzvMc-0&preview-route=%2Fgoals
-)
+[/goals](https://sync-botany-96419705.figma.site/goals)
 
 ## Wireframe 3: Meals
 
-[/meals](https://www.figma.com/make/1HEdImibp2i2lflDlicCpb/MacroMate-Nutrition-Tracking-App?p=f&t=zDdLak5Ftp3TzvMc-0&preview-route=%2Fmeals)
+[/meals](https://sync-botany-96419705.figma.site/meals)
 
 ## Wireframe 4: New Meals
 
-[/meals/new](https://www.figma.com/make/1HEdImibp2i2lflDlicCpb/MacroMate-Nutrition-Tracking-App?p=f&t=zDdLak5Ftp3TzvMc-0&preview-route=%2Fmeals%2Fnew)
+[/meals/new](https://sync-botany-96419705.figma.site/meals/new)
 
 ## Wireframe 5: Foods
 
-[/foods](https://www.figma.com/make/1HEdImibp2i2lflDlicCpb/MacroMate-Nutrition-Tracking-App?p=f&t=zDdLak5Ftp3TzvMc-0&preview-route=%2Ffoods)
+[/foods](https://sync-botany-96419705.figma.site/foods)
 
 ## Wireframe 6: New Food Items
 
-[/foods/new](https://www.figma.com/make/1HEdImibp2i2lflDlicCpb/MacroMate-Nutrition-Tracking-App?p=f&t=zDdLak5Ftp3TzvMc-0&preview-route=%2Ffoods%2Fnew)
+[/foods/new](https://sync-botany-96419705.figma.site/foods/new)
