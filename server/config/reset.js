@@ -112,6 +112,8 @@ const seedUsersTable = async () => {
       console.error('⚠️ error inserting user', err)
     }
   }
+
+  await pool.query(`SELECT setval('users_id_seq', (SELECT MAX(id) FROM users))`) // sync sequence to highest seeded id — without this, the next INSERT would try id=1 and throw a duplicate key error
 }
 
 const seedFoodItemsTable = async () => {
@@ -130,6 +132,8 @@ const seedFoodItemsTable = async () => {
       console.error('⚠️ error inserting food item', err)
     }
   }
+
+  await pool.query(`SELECT setval('food_items_id_seq', (SELECT MAX(id) FROM food_items))`) // sync sequence to highest seeded id — without this, the next INSERT would try id=1 and throw a duplicate key error
 }
 
 const seedMealsTable = async () => {
@@ -148,6 +152,8 @@ const seedMealsTable = async () => {
       console.error('⚠️ error inserting meal', err)
     }
   }
+
+  await pool.query(`SELECT setval('meals_id_seq', (SELECT MAX(id) FROM meals))`) // sync sequence to highest seeded id — without this, the next INSERT would try id=1 and throw a duplicate key error
 }
 
 const seedMealFoodItemsTable = async () => {
@@ -166,6 +172,8 @@ const seedMealFoodItemsTable = async () => {
       console.error('⚠️ error inserting meal_food_item', err)
     }
   }
+
+  await pool.query(`SELECT setval('meal_food_items_id_seq', (SELECT MAX(id) FROM meal_food_items))`) // sync sequence to highest seeded id — without this, the next INSERT would try id=1 and throw a duplicate key error
 }
 
 // ─── RUN ─────────────────────────────────────────────────────────────────────
