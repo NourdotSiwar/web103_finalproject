@@ -6,6 +6,7 @@ const FoodLibrary = () => {
   const [foodItems, setFoodItems] = useState([])
   const [search, setSearch] = useState('')
   const [editItem, setEditItem] = useState(null)
+  const [deleteError, setDeleteError] = useState(null)
 
   useEffect(() => {
     fetchFoodItems()
@@ -18,8 +19,13 @@ const FoodLibrary = () => {
   }
 
   const handleDelete = async (id) => {
-    await fetch(`/api/food-items/${id}`, { method: 'DELETE' })
-    setFoodItems(foodItems.filter(item => item.id !== id))
+    const res = await fetch(`/api/food-items/${id}`, { method: 'DELETE' })
+    if (res.ok) {
+      setFoodItems(foodItems.filter(item => item.id !== id))
+      setDeleteError(null)
+    } else {
+      setDeleteError('This food item is used in a meal and cannot be deleted.')
+    }
   }
 
   const handleEditChange = (e) => {
@@ -87,6 +93,8 @@ const FoodLibrary = () => {
           </div>
         </div>
       )}
+
+      {deleteError && <p className="error-message">{deleteError}</p>}
 
       <div className="food-grid">
         {filtered.map(item => (
