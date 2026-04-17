@@ -7,6 +7,7 @@ const Dashboard = () => {
   const [user, setUser] = useState(null)
   const [meals, setMeals] = useState([])
   const [totals, setTotals] = useState({ calories: 0, protein: 0, carbs: 0, fat: 0 })
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     fetchUser()
@@ -30,8 +31,18 @@ const Dashboard = () => {
     // Calculate totals across all today's meals
     let cal = 0, pro = 0, carb = 0, fat = 0
     for (const meal of todaysMeals) {
-      const itemsRes = await fetch(`/api/meal-food-items/meal/${meal.id}`)
-      const items = await itemsRes.json()
+      let items
+      try {
+        const itemsRes = await fetch(`/api/meal-food-items/meal/${meal.id}`)
+        items = await itemsRes.json()
+        if (!itemsRes.ok || !Array.isArray(items)) {
+          setError('Failed to load meal details. Please try again.')
+          continue
+        }
+      } catch {
+        setError('Failed to load meal details. Please try again.')
+        continue
+      }
       items.forEach(item => {
         cal  += item.calories * item.quantity
         pro  += item.protein  * item.quantity
@@ -56,6 +67,7 @@ const Dashboard = () => {
         <h1>Dashboard</h1>
         <p className="page-subtitle">Track your daily macro progress</p>
       </div>
+      {error && <p className="error-message">{error}</p>}
 
       <div className="card">
         <h2 className="section-title">Today's Progress</h2>

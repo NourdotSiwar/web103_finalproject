@@ -8,16 +8,25 @@ const Meals = () => {
   const [meals, setMeals] = useState([])
   const [mealTotals, setMealTotals] = useState({})
   const [dateFilter, setDateFilter] = useState('')
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     fetchMeals()
   }, [])
 
   const fetchMeals = async () => {
-    const res = await fetch(`/api/meals/user/${USER_ID}`)
-    const data = await res.json()
-    setMeals(data)
-    fetchAllTotals(data)
+    try {
+      const res = await fetch(`/api/meals/user/${USER_ID}`)
+      const data = await res.json()
+      if (res.ok && Array.isArray(data)) {
+        setMeals(data)
+        fetchAllTotals(data)
+      } else {
+        setError('Failed to load meals. Please try again.')
+      }
+    } catch {
+      setError('Failed to load meals. Please try again.')
+    }
   }
 
   const fetchAllTotals = async (mealList) => {
@@ -25,6 +34,10 @@ const Meals = () => {
     for (const meal of mealList) {
       const res = await fetch(`/api/meal-food-items/meal/${meal.id}`)
       const items = await res.json()
+      if (!res.ok || !Array.isArray(items)) {
+        setError('Failed to load meal details. Please try again.')
+        continue
+      }
       const calories = Math.round(items.reduce((sum, i) => sum + i.calories * i.quantity, 0))
       totalsMap[meal.id] = { calories, itemCount: items.length }
     }
@@ -51,6 +64,7 @@ const Meals = () => {
 
   return (
     <div className="page-container">
+      {error && <p className="error-message">{error}</p>}
       <div className="meals-header">
         <div>
           <h1>Meal History</h1>

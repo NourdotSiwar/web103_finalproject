@@ -12,8 +12,10 @@ const createFoodItem = async (req, res) => {
     )
 
     res.status(201).json(results.rows[0])
+    console.log("Food item created")
   } catch (error) {
     res.status(409).json({ error: error.message })
+    console.log(error.message);
   }
 }
 
@@ -64,8 +66,10 @@ const deleteFoodItem = async (req, res) => {
     await pool.query('DELETE FROM food_items WHERE id = $1', [id])
 
     res.status(200).json({ message: `Food item ${id} deleted successfully` })
+    console.log(`Food item ${id} deleted successfully` )
   } catch (error) {
     res.status(409).json({ error: error.message })
+        console.log(error.message)
   }
 }
 

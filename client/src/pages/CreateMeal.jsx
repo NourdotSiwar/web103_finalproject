@@ -15,12 +15,18 @@ const CreateMeal = () => {
   const [allFoodItems, setAllFoodItems] = useState([])
   const [search, setSearch] = useState('')
   const [addedItems, setAddedItems] = useState([])
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     const fetchFoodItems = async () => {
-      const res = await fetch('/api/food-items')
-      const data = await res.json()
-      setAllFoodItems(data)
+      try {
+        const res = await fetch('/api/food-items')
+        const data = await res.json()
+        if (res.ok && Array.isArray(data)) setAllFoodItems(data)
+        else setError('Failed to load food items. Please try again.')
+      } catch {
+        setError('Failed to load food items. Please try again.')
+      }
     }
     fetchFoodItems()
   }, [])
@@ -73,6 +79,7 @@ const CreateMeal = () => {
         <h1>Create New Meal</h1>
         <p className="page-subtitle">Add food items to create a meal</p>
       </div>
+      {error && <p className="error-message">{error}</p>}
 
       <form onSubmit={handleSubmit}>
         <div className="card">
