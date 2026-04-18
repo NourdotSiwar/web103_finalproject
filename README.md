@@ -30,11 +30,11 @@ Users select a goal (cut, bulk, or maintain) and input their daily calorie, prot
 
 [gif goes here]
 
-### Food Item Library
+### Food Item Library ✅
 
 Users can create, edit, and delete reusable food items. Each food item stores its name, calories, protein, carbs, fat, and serving unit (g, oz, cup, etc.).
 
-[gif goes here]
+[View Image](https://imgur.com/a/c9HQZzM.gif)
 
 ### Build a Meal
 
