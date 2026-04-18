@@ -6,6 +6,7 @@ import Meals from './pages/Meals'
 import CreateMeal from './pages/CreateMeal'
 import FoodLibrary from './pages/FoodLibrary'
 import AddFoodItem from './pages/AddFoodItem'
+import MealDetail from './pages/MealDetail'
 
 const App = () => {
   const element = useRoutes([
@@ -15,6 +16,7 @@ const App = () => {
     { path: '/meals/new',  element: <CreateMeal /> },
     { path: '/foods',      element: <FoodLibrary /> },
     { path: '/foods/new',  element: <AddFoodItem /> },
+    { path: '/meals/:id',  element: <MealDetail /> },
   ])
 
   return (

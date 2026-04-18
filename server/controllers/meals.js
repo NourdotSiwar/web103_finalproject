@@ -76,10 +76,13 @@ const deleteMeal = async (req, res) => {
   try {
     const { id } = req.params
 
+    await pool.query('DELETE FROM meal_food_items WHERE meal_id = $1', [id])
     await pool.query('DELETE FROM meals WHERE id = $1', [id])
+
 
     res.status(200).json({ message: `Meal ${id} deleted successfully` })
   } catch (error) {
+    console.log(error.message)
     res.status(409).json({ error: error.message })
   }
 }

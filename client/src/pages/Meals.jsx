@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import './Meals.css'
 
 const USER_ID = 1
@@ -9,6 +9,7 @@ const Meals = () => {
   const [mealTotals, setMealTotals] = useState({})
   const [dateFilter, setDateFilter] = useState('')
   const [error, setError] = useState(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetchMeals()
@@ -106,7 +107,7 @@ const Meals = () => {
                         {mealTotals[meal.id]?.calories ?? '—'} kcal &bull; {mealTotals[meal.id]?.itemCount ?? '—'} items
                       </p>
                     </div>
-                    <button className="btn-outline btn-view-details">
+                    <button className="btn-outline btn-view-details" onClick={() => navigate(`/meals/${meal.id}`)}>
                       👁 View Details
                     </button>
                   </div>
