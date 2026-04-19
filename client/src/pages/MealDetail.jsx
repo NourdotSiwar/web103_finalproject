@@ -43,7 +43,8 @@ const MealDetail = () => {
   }
 
   const formatDate = (dateStr) => {
-    const d = new Date(dateStr + 'T12:00:00')
+    const datePart = dateStr?.split('T')[0]
+    const d = new Date(datePart + 'T12:00:00')
     return d.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
   }
 
