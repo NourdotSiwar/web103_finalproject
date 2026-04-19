@@ -22,7 +22,7 @@ const MealDetail = () => {
       const data = await res.json()
       if (res.ok && data) {
         setMeal(data)
-        setEditForm({ name: data.name, date: data.date })
+        setEditForm({ name: data.name, date: data.date?.split('T')[0] })
       }
       else setError('Failed to load meal.')
     } catch {
