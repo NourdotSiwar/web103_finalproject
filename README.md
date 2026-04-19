@@ -54,11 +54,11 @@ Users can browse past meals by date to review what they ate and how their macros
 
 [gif goes here]
 
-### Remaining Macros Calculator 
+### Remaining Macros Calculator [✅]
 
 After logging meals, MacroMate shows how many calories and grams of each macro the user still has left for the day, helping them plan their next meal.
 
-[gif goes here]
+[View Image](https://imgur.com/a/movM6Nh.gif)
 
 ### Meal Macro Breakdown
 
