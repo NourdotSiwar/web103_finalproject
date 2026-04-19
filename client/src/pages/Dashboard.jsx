@@ -61,6 +61,13 @@ const Dashboard = () => {
   const pct = (current, target) =>
     target ? Math.min((current / target) * 100, 100) : 0
 
+  const remaining = {
+    calories: Math.max((user?.calorie_target ?? 0) - totals.calories, 0),
+    protein:  Math.max((user?.protein_target  ?? 0) - totals.protein,  0),
+    carbs:    Math.max((user?.carb_target     ?? 0) - totals.carbs,    0),
+    fat:      Math.max((user?.fat_target      ?? 0) - totals.fat,      0),
+  }
+
   return (
     <div className="page-container">
       <div className="page-header">
@@ -85,6 +92,30 @@ const Dashboard = () => {
             </div>
             <div className="progress-bar">
               <div className="progress-fill" style={{ width: `${pct(totals[key], target)}%` }} />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="card">
+        <h2 className="section-title">Remaining Macros</h2>
+        {[
+          { label: 'Calories', key: 'calories', target: user?.calorie_target, unit: 'kcal' },
+          { label: 'Protein',  key: 'protein',  target: user?.protein_target,  unit: 'g' },
+          { label: 'Carbs',    key: 'carbs',    target: user?.carb_target,     unit: 'g' },
+          { label: 'Fat',      key: 'fat',      target: user?.fat_target,      unit: 'g' },
+        ].map(({ label, key, target, unit }) => (
+          <div className="macro-row" key={key}>
+            <div className="macro-label-row">
+              <span className="macro-name">{label}</span>
+              <span className="macro-value">
+                {target
+                  ? totals[key] > target
+                    ? <span className="over-target">Over target</span>
+                    : `${remaining[key]} ${unit} left`
+                  : '—'
+                }
+              </span>
             </div>
           </div>
         ))}
