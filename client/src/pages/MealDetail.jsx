@@ -8,6 +8,8 @@ const MealDetail = () => {
   const [meal, setMeal] = useState(null)
   const [items, setItems] = useState([])
   const [error, setError] = useState(null)
+  const [editing, setEditing] = useState(false)
+  const [editForm, setEditForm] = useState({ name: '', date: '' })
 
   useEffect(() => {
     fetchMeal()
@@ -18,7 +20,10 @@ const MealDetail = () => {
     try {
       const res = await fetch(`/api/meals/${id}`)
       const data = await res.json()
-      if (res.ok && data) setMeal(data)
+      if (res.ok && data) {
+        setMeal(data)
+        setEditForm({ name: data.name, date: data.date })
+      }
       else setError('Failed to load meal.')
     } catch {
       setError('Failed to load meal.')
@@ -33,6 +38,26 @@ const MealDetail = () => {
       else setError('Failed to load food items.')
     } catch {
       setError('Failed to load food items.')
+    }
+  }
+
+  const handleEdit = async () => {
+    const res = await fetch(`/api/meals/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: editForm.name,
+        date: editForm.date,
+        user_id: meal.user_id,
+        notes: meal.notes || '',
+      }),
+    })
+    if (res.ok) {
+      const updated = await res.json()
+      setMeal(updated)
+      setEditing(false)
+    } else {
+      setError('Failed to update meal.')
     }
   }
 
@@ -58,15 +83,42 @@ const MealDetail = () => {
     <div className="page-container">
       <div className="meal-detail-topbar">
         <button className="btn-back" onClick={() => navigate('/meals')}>← Back to Meals</button>
-        <button className="btn-danger-outline" onClick={handleDelete}>🗑 Delete Meal</button>
+        <div className="meal-detail-actions">
+          <button className="btn-outline" onClick={() => setEditing(!editing)}>✏ Edit</button>
+          <button className="btn-danger-outline" onClick={handleDelete}>🗑 Delete Meal</button>
+        </div>
       </div>
 
       {error && <p className="error-message">{error}</p>}
 
       {meal && (
         <div className="card meal-detail-header">
-          <h1 className="meal-detail-name">{meal.name}</h1>
-          <p className="meal-detail-date">{formatDate(meal.date)}</p>
+          {editing ? (
+            <>
+              <input
+                className="form-input"
+                value={editForm.name}
+                onChange={e => setEditForm({ ...editForm, name: e.target.value })}
+                style={{ marginBottom: 12 }}
+              />
+              <input
+                type="date"
+                className="form-input"
+                value={editForm.date}
+                onChange={e => setEditForm({ ...editForm, date: e.target.value })}
+                style={{ marginBottom: 12 }}
+              />
+              <div className="edit-modal-actions">
+                <button className="btn-primary" onClick={handleEdit}>Save</button>
+                <button className="btn-outline" onClick={() => setEditing(false)}>Cancel</button>
+              </div>
+            </>
+          ) : (
+            <>
+              <h1 className="meal-detail-name">{meal.name}</h1>
+              <p className="meal-detail-date">{formatDate(meal.date)}</p>
+            </>
+          )}
         </div>
       )}
 

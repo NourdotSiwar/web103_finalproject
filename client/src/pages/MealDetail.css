@@ -5,6 +5,11 @@
   margin-bottom: 24px;
 }
 
+.meal-detail-actions {
+  display: flex;
+  gap: 10px;
+}
+
 .btn-back {
   background: none;
   border: none;
