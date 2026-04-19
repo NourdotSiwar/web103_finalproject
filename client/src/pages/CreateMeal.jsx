@@ -14,6 +14,7 @@ const CreateMeal = () => {
   })
   const [allFoodItems, setAllFoodItems] = useState([])
   const [search, setSearch] = useState('')
+  const [searchFocused, setSearchFocused] = useState(false)
   const [addedItems, setAddedItems] = useState([])
   const [error, setError] = useState(null)
 
@@ -120,12 +121,14 @@ const CreateMeal = () => {
                 placeholder="Search for food items..."
                 value={search}
                 onChange={e => setSearch(e.target.value)}
+                onFocus={() => setSearchFocused(true)}
+                onBlur={() => setSearchFocused(false)}
                 className="form-input search-input"
               />
-              {search && filteredFoodItems.length > 0 && (
+              {searchFocused && filteredFoodItems.length > 0 && (
                 <div className="search-dropdown">
                   {filteredFoodItems.map(item => (
-                    <div key={item.id} className="search-result" onClick={() => addItem(item)}>
+                    <div key={item.id} className="search-result" onMouseDown={() => addItem(item)}>
                       <span>{item.name}</span>
                       <span className="search-result-meta">{item.calories} kcal / {item.serving_unit}</span>
                     </div>
