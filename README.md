@@ -36,11 +36,11 @@ Users can create, edit, and delete reusable food items. Each food item stores it
 
 [View Image](https://imgur.com/a/c9HQZzM.gif)
 
-### Build a Meal
+### Build a Meal [✅]
 
 Users create a meal (e.g. "Breakfast", "Post-workout") and add food items to it with a specific quantity/serving. MacroMate auto-calculates the meal's total macros from its food items.
 
-[gif goes here]
+[View Image](https://imgur.com/a/o9UzMXU.gif)
 
 ### Daily Macro Dashboard
 
