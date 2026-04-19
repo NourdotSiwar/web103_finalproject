@@ -122,17 +122,17 @@ const CreateMeal = () => {
                 onChange={e => setSearch(e.target.value)}
                 className="form-input search-input"
               />
+              {search && filteredFoodItems.length > 0 && (
+                <div className="search-dropdown">
+                  {filteredFoodItems.map(item => (
+                    <div key={item.id} className="search-result" onClick={() => addItem(item)}>
+                      <span>{item.name}</span>
+                      <span className="search-result-meta">{item.calories} kcal / {item.serving_unit}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
-            {search && filteredFoodItems.length > 0 && (
-              <div className="search-dropdown">
-                {filteredFoodItems.map(item => (
-                  <div key={item.id} className="search-result" onClick={() => addItem(item)}>
-                    <span>{item.name}</span>
-                    <span className="search-result-meta">{item.calories} kcal / {item.serving_unit}</span>
-                  </div>
-                ))}
-              </div>
-            )}
           </div>
         </div>
 
