@@ -18,11 +18,14 @@ const createUsersTable = async () => {
 
     CREATE TABLE IF NOT EXISTS users (
       id serial PRIMARY KEY,
-      goal varchar(20) NOT NULL,
-      calorie_target int NOT NULL,
-      protein_target int NOT NULL,
-      carb_target int NOT NULL,
-      fat_target int NOT NULL
+      email varchar(255) UNIQUE NOT NULL,
+      password varchar(255) NOT NULL,
+      name varchar(100) NOT NULL,
+      goal varchar(20) DEFAULT 'maintain',
+      calorie_target int DEFAULT 2000,
+      protein_target int DEFAULT 150,
+      carb_target int DEFAULT 200,
+      fat_target int DEFAULT 65
     );
   `
   try {
