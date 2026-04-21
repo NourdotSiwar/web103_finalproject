@@ -1,18 +1,12 @@
 .search-wrapper {
   position: relative;
-}
-
-.search-icon {
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 14px;
-  pointer-events: none;
+  width: 100%;
 }
 
 .search-input {
-  padding-left: 32px;
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
 }
 
 .search-dropdown {
@@ -20,27 +14,26 @@
   top: 100%;
   left: 0;
   right: 0;
-  background: #ffffff;
-  border: 1px solid #d1d5db;
-  border-top: none;
-  border-radius: 0 0 6px 6px;
-  z-index: 10;
-  max-height: 200px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  max-height: 300px;
   overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .search-result {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 10px 12px;
-  cursor: pointer;
-  font-size: 13px;
-  transition: background-color 0.1s;
+  
 }
 
 .search-result:hover {
-  background-color: #f0f2f5;
+  background-color: #f5f5f5;
 }
 
 .search-result-meta {
@@ -95,6 +88,7 @@
 .create-meal-actions {
   display: flex;
   gap: 12px;
+  margin-top: 20px;
 }
 
 .create-meal-save {

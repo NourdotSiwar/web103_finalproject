@@ -18,11 +18,14 @@ const createUsersTable = async () => {
 
     CREATE TABLE IF NOT EXISTS users (
       id serial PRIMARY KEY,
-      goal varchar(20) NOT NULL,
-      calorie_target int NOT NULL,
-      protein_target int NOT NULL,
-      carb_target int NOT NULL,
-      fat_target int NOT NULL
+      email varchar(255) UNIQUE NOT NULL,
+      password varchar(255) NOT NULL,
+      name varchar(100) NOT NULL,
+      goal varchar(20) DEFAULT 'maintain',
+      calorie_target int DEFAULT 2000,
+      protein_target int DEFAULT 150,
+      carb_target int DEFAULT 200,
+      fat_target int DEFAULT 65
     );
   `
   try {
@@ -101,9 +104,9 @@ const seedUsersTable = async () => {
 
   for (const user of seedData.users) {
     const insertQuery = {
-      text: 'INSERT INTO users (id, goal, calorie_target, protein_target, carb_target, fat_target) VALUES ($1, $2, $3, $4, $5, $6)'
+      text: 'INSERT INTO users (id, email, password, name, goal, calorie_target, protein_target, carb_target, fat_target) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)'
     }
-    const values = [user.id, user.goal, user.calorie_target, user.protein_target, user.carb_target, user.fat_target]
+    const values = [user.id, user.email, user.password, user.name, user.goal, user.calorie_target, user.protein_target, user.carb_target, user.fat_target]
 
     try {
       await pool.query(insertQuery, values)

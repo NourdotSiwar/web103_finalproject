@@ -18,11 +18,14 @@ const resetDatabase = async (req, res) => {
 
       CREATE TABLE users (
         id serial PRIMARY KEY,
-        goal varchar(20) NOT NULL,
-        calorie_target int NOT NULL,
-        protein_target int NOT NULL,
-        carb_target int NOT NULL,
-        fat_target int NOT NULL
+        email varchar(255) UNIQUE NOT NULL,
+        password varchar(255) NOT NULL,
+        name varchar(100) NOT NULL,
+        goal varchar(20) DEFAULT 'maintain',
+        calorie_target int DEFAULT 2000,
+        protein_target int DEFAULT 150,
+        carb_target int DEFAULT 200,
+        fat_target int DEFAULT 65
       );
 
       CREATE TABLE food_items (
@@ -51,13 +54,21 @@ const resetDatabase = async (req, res) => {
       );
     `)
 
-    // Seed users
+    // Seed users (sample users without real passwords - for testing only)
     for (const user of seedData.users) {
+      const email = user.email || `user${user.id}@example.com`
+      const password = user.password || '$2b$10$dummyHashForTestingOnly12345678'
+      const name = user.name || `User ${user.id}`
+      
       await pool.query(
-        'INSERT INTO users (id, goal, calorie_target, protein_target, carb_target, fat_target) VALUES ($1, $2, $3, $4, $5, $6)',
-        [user.id, user.goal, user.calorie_target, user.protein_target, user.carb_target, user.fat_target]
+        `INSERT INTO users (id, email, password, name, goal, calorie_target, protein_target, carb_target, fat_target) 
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+        [user.id, email, password, name, user.goal, user.calorie_target, user.protein_target, user.carb_target, user.fat_target]
       )
     }
+
+    // Reset users sequence
+    await pool.query(`SELECT setval('users_id_seq', (SELECT MAX(id) FROM users))`)
 
     // Seed food_items
     for (const item of seedData.food_items) {
@@ -67,6 +78,9 @@ const resetDatabase = async (req, res) => {
       )
     }
 
+    // Reset food_items sequence
+    await pool.query(`SELECT setval('food_items_id_seq', (SELECT MAX(id) FROM food_items))`)
+
     // Seed meals
     for (const meal of seedData.meals) {
       await pool.query(
@@ -74,6 +88,9 @@ const resetDatabase = async (req, res) => {
         [meal.id, meal.user_id, meal.name, meal.date, meal.notes]
       )
     }
+
+    // Reset meals sequence
+    await pool.query(`SELECT setval('meals_id_seq', (SELECT MAX(id) FROM meals))`)
 
     // Seed meal_food_items
     for (const entry of seedData.meal_food_items) {
@@ -83,8 +100,12 @@ const resetDatabase = async (req, res) => {
       )
     }
 
+    // Reset meal_food_items sequence
+    await pool.query(`SELECT setval('meal_food_items_id_seq', (SELECT MAX(id) FROM meal_food_items))`)
+
     res.status(200).json({ message: 'Database reset successfully' })
   } catch (error) {
+    console.error('Reset error:', error)
     res.status(500).json({ error: error.message })
   }
 }

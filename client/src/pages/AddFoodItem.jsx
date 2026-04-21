@@ -12,6 +12,7 @@ const AddFoodItem = () => {
     carbs: 0,
     fat: 0,
   })
+  const [error, setError] = useState('')
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -19,12 +20,24 @@ const AddFoodItem = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    await fetch('/api/food-items', {
+    setError('')
+    
+    const token = localStorage.getItem('token')
+    const response = await fetch('/api/food-items', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
       body: JSON.stringify(form),
     })
-    navigate('/foods')
+    
+    if (response.ok) {
+      navigate('/foods')
+    } else {
+      const data = await response.json()
+      setError(data.error || 'Failed to add food item')
+    }
   }
 
   const servingUnits = ['g', 'oz', 'cup', 'tbsp', 'tsp', 'ml', 'piece', 'slice', 'egg', 'medium', 'large']
@@ -35,6 +48,8 @@ const AddFoodItem = () => {
         <h1>Add Food Item</h1>
         <p className="page-subtitle">Add a new food item to your library</p>
       </div>
+
+      {error && <p className="error-message">{error}</p>}
 
       <div className="card">
         <form onSubmit={handleSubmit}>

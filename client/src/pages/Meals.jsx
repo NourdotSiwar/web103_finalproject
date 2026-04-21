@@ -2,9 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router'
 import './Meals.css'
 
-const USER_ID = 1
-
-const Meals = () => {
+const Meals = ({ user }) => {  // ← Receive user as prop
   const [meals, setMeals] = useState([])
   const [mealTotals, setMealTotals] = useState({})
   const [dateFilter, setDateFilter] = useState('')
@@ -17,7 +15,10 @@ const Meals = () => {
 
   const fetchMeals = async () => {
     try {
-      const res = await fetch(`/api/meals/user/${USER_ID}`)
+      const token = localStorage.getItem('token')
+      const res = await fetch(`/api/meals/user/${user.id}`, {  // ← Use user.id
+        headers: { 'Authorization': `Bearer ${token}` }
+      })
       const data = await res.json()
       if (res.ok && Array.isArray(data)) {
         setMeals(data)
@@ -31,9 +32,12 @@ const Meals = () => {
   }
 
   const fetchAllTotals = async (mealList) => {
+    const token = localStorage.getItem('token')
     const totalsMap = {}
     for (const meal of mealList) {
-      const res = await fetch(`/api/meal-food-items/meal/${meal.id}`)
+      const res = await fetch(`/api/meal-food-items/meal/${meal.id}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      })
       const items = await res.json()
       if (!res.ok || !Array.isArray(items)) {
         setError('Failed to load meal details. Please try again.')

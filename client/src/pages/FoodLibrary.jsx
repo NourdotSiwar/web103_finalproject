@@ -15,7 +15,13 @@ const FoodLibrary = () => {
 
   const fetchFoodItems = async () => {
     try {
-      const res = await fetch('/api/food-items')
+      const token = localStorage.getItem('token')
+      const res = await fetch('/api/food-items', {
+        headers: { 
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      })
       const data = await res.json()
       if (res.ok && Array.isArray(data)) setFoodItems(data)
       else setError('Failed to load food items. Please try again.')
@@ -25,12 +31,20 @@ const FoodLibrary = () => {
   }
 
   const handleDelete = async (id) => {
-    const res = await fetch(`/api/food-items/${id}`, { method: 'DELETE' })
+    const token = localStorage.getItem('token')
+    const res = await fetch(`/api/food-items/${id}`, { 
+      method: 'DELETE',
+      headers: { 
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
     if (res.ok) {
       setFoodItems(foodItems.filter(item => item.id !== id))
       setDeleteError(null)
     } else {
-      setDeleteError('This food item is used in a meal and cannot be deleted.')
+      const data = await res.json()
+      setDeleteError(data.error || 'This food item is used in a meal and cannot be deleted.')
     }
   }
 
@@ -39,9 +53,13 @@ const FoodLibrary = () => {
   }
 
   const handleEditSave = async () => {
+    const token = localStorage.getItem('token')
     await fetch(`/api/food-items/${editItem.id}`, {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
       body: JSON.stringify(editItem),
     })
     setFoodItems(foodItems.map(i => i.id === editItem.id ? editItem : i))

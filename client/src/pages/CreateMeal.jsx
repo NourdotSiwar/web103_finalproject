@@ -2,11 +2,8 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import './CreateMeal.css'
 
-const USER_ID = 1
-
-const CreateMeal = () => {
+const CreateMeal = ({ user }) => {
   const navigate = useNavigate()
-  const today = new Date().toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' })
 
   const [form, setForm] = useState({
     name: '',
@@ -14,14 +11,16 @@ const CreateMeal = () => {
   })
   const [allFoodItems, setAllFoodItems] = useState([])
   const [search, setSearch] = useState('')
-  const [searchFocused, setSearchFocused] = useState(false)
   const [addedItems, setAddedItems] = useState([])
   const [error, setError] = useState(null)
 
   useEffect(() => {
     const fetchFoodItems = async () => {
       try {
-        const res = await fetch('/api/food-items')
+        const token = localStorage.getItem('token')
+        const res = await fetch('/api/food-items', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        })
         const data = await res.json()
         if (res.ok && Array.isArray(data)) setAllFoodItems(data)
         else setError('Failed to load food items. Please try again.')
@@ -56,17 +55,25 @@ const CreateMeal = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    const token = localStorage.getItem('token')
+    
     const mealRes = await fetch('/api/meals', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...form, user_id: USER_ID, notes: '' }),
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ ...form, user_id: user.id, notes: '' }),
     })
     const meal = await mealRes.json()
 
     for (const item of addedItems) {
       await fetch(`/api/meal-food-items/meal/${meal.id}`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify({ food_item_id: item.id, quantity: item.quantity }),
       })
     }
@@ -85,7 +92,7 @@ const CreateMeal = () => {
       <form onSubmit={handleSubmit}>
         <div className="card">
           <div className="form-grid-2">
-            <div className="form-group" style={{ marginBottom: 0 }}>
+            <div className="form-group">
               <label className="form-label">Meal Name</label>
               <input
                 type="text"
@@ -97,7 +104,7 @@ const CreateMeal = () => {
                 required
               />
             </div>
-            <div className="form-group" style={{ marginBottom: 0 }}>
+            <div className="form-group">
               <label className="form-label">Date</label>
               <input
                 type="date"
@@ -121,14 +128,12 @@ const CreateMeal = () => {
                 placeholder="Search for food items..."
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                onFocus={() => setSearchFocused(true)}
-                onBlur={() => setSearchFocused(false)}
                 className="form-input search-input"
               />
-              {searchFocused && filteredFoodItems.length > 0 && (
+              {search && filteredFoodItems.length > 0 && (
                 <div className="search-dropdown">
                   {filteredFoodItems.map(item => (
-                    <div key={item.id} className="search-result" onMouseDown={() => addItem(item)}>
+                    <div key={item.id} className="search-result" onClick={() => addItem(item)}>
                       <span>{item.name}</span>
                       <span className="search-result-meta">{item.calories} kcal / {item.serving_unit}</span>
                     </div>
