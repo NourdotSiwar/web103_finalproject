@@ -29,7 +29,6 @@ const Dashboard = ({ user }) => {
     const todaysMeals = data.filter(meal => meal.date?.startsWith(today))
     setMeals(todaysMeals)
     
-    // Calculate totals
     let cal = 0, pro = 0, carb = 0, fat = 0
     for (const meal of todaysMeals) {
       const itemsRes = await fetch(`/api/meal-food-items/meal/${meal.id}`, {
@@ -61,9 +60,9 @@ const Dashboard = ({ user }) => {
 
   const getProgressColor = (current, target) => {
     const percentage = (current / target) * 100
-    if (percentage >= 100) return '#dc3545'  // Red - over
-    if (percentage >= 85) return '#ffc107'   // Yellow - close
-    return '#4a6cf7'  // Blue - good
+    if (percentage >= 100) return '#dc3545'
+    if (percentage >= 85) return '#ffc107'
+    return '#4a6cf7'
   }
 
   if (loading) return <div className="loading-spinner">Loading your dashboard...</div>
@@ -115,6 +114,34 @@ const Dashboard = ({ user }) => {
                   ⚠️ You've exceeded your {label.toLowerCase()} target for today!
                 </small>
               )}
+            </div>
+          )
+        })}
+      </div>
+
+      <div className="card">
+        <h2 className="section-title">Remaining Macros</h2>
+        {[
+          { label: 'Calories', key: 'calories', target: user?.calorie_target, unit: 'kcal' },
+          { label: 'Protein',  key: 'protein',  target: user?.protein_target,  unit: 'g' },
+          { label: 'Carbs',    key: 'carbs',    target: user?.carb_target,     unit: 'g' },
+          { label: 'Fat',      key: 'fat',      target: user?.fat_target,      unit: 'g' },
+        ].map(({ label, key, target, unit }) => {
+          const current = totals[key]
+          const remaining = getRemaining(current, target)
+          return (
+            <div className="macro-row" key={key}>
+              <div className="macro-label-row">
+                <span className="macro-name">{label}</span>
+                <span className="macro-value">
+                  {target
+                    ? current > target
+                      ? <span className="over-target">Over target</span>
+                      : `${remaining} ${unit} left`
+                    : '—'
+                  }
+                </span>
+              </div>
             </div>
           )
         })}

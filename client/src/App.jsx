@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Routes, Route, Navigate, NavLink } from 'react-router-dom'  // ← Remove BrowserRouter from here
+import { Routes, Route, Navigate, NavLink } from 'react-router-dom'
 import './App.css'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
@@ -8,6 +8,7 @@ import Meals from './pages/Meals'
 import CreateMeal from './pages/CreateMeal'
 import FoodLibrary from './pages/FoodLibrary'
 import AddFoodItem from './pages/AddFoodItem'
+import MealDetail from './pages/MealDetail'
 
 const App = () => {
   const [loggedInUser, setLoggedInUser] = useState(null)
@@ -125,6 +126,9 @@ const App = () => {
         } />
         <Route path="/meals/new" element={
           loggedInUser ? <CreateMeal user={loggedInUser} /> : <Navigate to="/login" />
+        } />
+        <Route path="/meals/:id" element={
+          loggedInUser ? <MealDetail user={loggedInUser} /> : <Navigate to="/login" />
         } />
         <Route path="/foods" element={
           loggedInUser ? <FoodLibrary user={loggedInUser} /> : <Navigate to="/login" />
