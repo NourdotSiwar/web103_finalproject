@@ -80,4 +80,4 @@ NutriBot is an AI-powered assistant that gives guidance on macronutrient intake.
 - General advice on carbs, protein, and fats  
 - Reads user data for personalized recommendations via gemini-tool calling
 
-![NutriBot Demo](https://imgur.com/a/0Hjn6lk.gif)
+[View Demo](https://imgur.com/a/0Hjn6lk.gif)
