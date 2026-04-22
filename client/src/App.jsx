@@ -9,6 +9,7 @@ import CreateMeal from './pages/CreateMeal'
 import FoodLibrary from './pages/FoodLibrary'
 import AddFoodItem from './pages/AddFoodItem'
 import MealDetail from './pages/MealDetail'
+import NutriBot from './components/NutriBot/NutriBot'
 
 const App = () => {
   const [loggedInUser, setLoggedInUser] = useState(null)
@@ -137,6 +138,7 @@ const App = () => {
           loggedInUser ? <AddFoodItem user={loggedInUser} /> : <Navigate to="/login" />
         } />
       </Routes>
+      {loggedInUser && <NutriBot />}
     </>
   )
 }
