@@ -69,3 +69,15 @@ Each meal displays a visual macro breakdown (percentage of calories from protein
 ## Installation Instructions
 
 [instructions go here]
+
+
+## Stretch Features
+
+### 🥗 NutriBot (Stretch Feature) [✅]
+
+NutriBot is an AI-powered assistant that gives guidance on macronutrient intake.
+
+- General advice on carbs, protein, and fats  
+- Reads user data for personalized recommendations via gemini-tool calling
+
+![NutriBot Demo](https://imgur.com/a/0Hjn6lk.gif)
