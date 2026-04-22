@@ -2,6 +2,93 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router'
 import './MealDetail.css'
 
+const COLORS = {
+  Protein: '#3b82f6',
+  Carbs:   '#f59e0b',
+  Fat:     '#ef4444',
+}
+
+const MacroPieChart = ({ totals }) => {
+  const proteinCals = totals.protein * 4
+  const carbsCals   = totals.carbs   * 4
+  const fatCals     = totals.fat     * 9
+  const total       = proteinCals + carbsCals + fatCals
+
+  const slices = [
+    { label: 'Protein', value: proteinCals, grams: totals.protein },
+    { label: 'Carbs',   value: carbsCals,   grams: totals.carbs   },
+    { label: 'Fat',     value: fatCals,     grams: totals.fat     },
+  ]
+
+  const cx = 100, cy = 100, r = 80
+
+  const toXY = (angle) => {
+    const rad = (angle - 90) * (Math.PI / 180)
+    return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) }
+  }
+
+  let cursor = 0
+  const paths = total > 0
+    ? slices.map((slice) => {
+        const sweep = (slice.value / total) * 359.9999
+        const start = toXY(cursor)
+        const end   = toXY(cursor + sweep)
+        const large = sweep > 180 ? 1 : 0
+        const d = `M ${cx} ${cy} L ${start.x} ${start.y} A ${r} ${r} 0 ${large} 1 ${end.x} ${end.y} Z`
+        cursor += sweep
+        return { ...slice, d, pct: Math.round((slice.value / total) * 100) }
+      })
+    : []
+
+  return (
+    <div className="macro-chart-panel">
+      <h2 className="section-title">Macro Breakdown</h2>
+
+      {total === 0 ? (
+        <p className="empty-state">No macro data available</p>
+      ) : (
+        <>
+          <svg viewBox="0 0 200 200" className="pie-chart">
+            {paths.map(s => (
+              <path key={s.label} d={s.d} fill={COLORS[s.label]} />
+            ))}
+          </svg>
+
+          <div className="macro-legend">
+            {paths.map(s => (
+              <div key={s.label} className="legend-item">
+                <span className="legend-dot" style={{ background: COLORS[s.label] }} />
+                <span className="legend-label">{s.label}</span>
+                <span className="legend-grams">{Math.round(s.grams)}g</span>
+                <span className="legend-pct">{s.pct}%</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="macro-totals">
+            <div className="macro-total-row">
+              <span>Total Calories</span>
+              <span>{Math.round(totals.calories)} kcal</span>
+            </div>
+            <div className="macro-total-row">
+              <span>Protein</span>
+              <span>{Math.round(totals.protein)}g &nbsp;·&nbsp; {Math.round(proteinCals)} kcal</span>
+            </div>
+            <div className="macro-total-row">
+              <span>Carbs</span>
+              <span>{Math.round(totals.carbs)}g &nbsp;·&nbsp; {Math.round(carbsCals)} kcal</span>
+            </div>
+            <div className="macro-total-row">
+              <span>Fat</span>
+              <span>{Math.round(totals.fat)}g &nbsp;·&nbsp; {Math.round(fatCals)} kcal</span>
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+  )
+}
+
 const MealDetail = () => {
   const { id } = useParams()
   const navigate = useNavigate()
@@ -23,8 +110,7 @@ const MealDetail = () => {
       if (res.ok && data) {
         setMeal(data)
         setEditForm({ name: data.name, date: data.date?.split('T')[0] })
-      }
-      else setError('Failed to load meal.')
+      } else setError('Failed to load meal.')
     } catch {
       setError('Failed to load meal.')
     }
@@ -123,40 +209,44 @@ const MealDetail = () => {
         </div>
       )}
 
-      <div className="card">
-        <h2 className="section-title">Food Items</h2>
-        <table className="meal-detail-table">
-          <thead>
-            <tr>
-              <th>Food Item</th>
-              <th>Quantity</th>
-              <th>Calories</th>
-              <th>Protein</th>
-              <th>Carbs</th>
-              <th>Fat</th>
-            </tr>
-          </thead>
-          <tbody>
-            {items.map(item => (
-              <tr key={item.id}>
-                <td>{item.name}</td>
-                <td>{item.quantity}{item.serving_unit}</td>
-                <td>{item.calories}</td>
-                <td>{item.protein}g</td>
-                <td>{item.carbs}g</td>
-                <td>{item.fat}g</td>
+      <div className="meal-detail-body">
+        <div className="card">
+          <h2 className="section-title">Food Items</h2>
+          <table className="meal-detail-table">
+            <thead>
+              <tr>
+                <th>Food Item</th>
+                <th>Quantity</th>
+                <th>Calories</th>
+                <th>Protein</th>
+                <th>Carbs</th>
+                <th>Fat</th>
               </tr>
-            ))}
-            <tr className="totals-row">
-              <td><strong>Total</strong></td>
-              <td></td>
-              <td><strong>{totals.calories}</strong></td>
-              <td><strong>{totals.protein}g</strong></td>
-              <td><strong>{totals.carbs}g</strong></td>
-              <td><strong>{totals.fat}g</strong></td>
-            </tr>
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {items.map(item => (
+                <tr key={item.id}>
+                  <td>{item.name}</td>
+                  <td>{item.quantity}{item.serving_unit}</td>
+                  <td>{item.calories}</td>
+                  <td>{item.protein}g</td>
+                  <td>{item.carbs}g</td>
+                  <td>{item.fat}g</td>
+                </tr>
+              ))}
+              <tr className="totals-row">
+                <td><strong>Total</strong></td>
+                <td></td>
+                <td><strong>{totals.calories}</strong></td>
+                <td><strong>{totals.protein}g</strong></td>
+                <td><strong>{totals.carbs}g</strong></td>
+                <td><strong>{totals.fat}g</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <MacroPieChart totals={totals} />
       </div>
     </div>
   )

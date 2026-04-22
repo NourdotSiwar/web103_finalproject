@@ -9,6 +9,7 @@ import CreateMeal from './pages/CreateMeal'
 import FoodLibrary from './pages/FoodLibrary'
 import AddFoodItem from './pages/AddFoodItem'
 import MealDetail from './pages/MealDetail'
+import Log from './pages/Log'
 
 const App = () => {
   const [loggedInUser, setLoggedInUser] = useState(null)
@@ -88,6 +89,9 @@ const App = () => {
             <NavLink to="/foods" className={({ isActive }) => 'nav-link' + (isActive ? ' active' : '')}>
               Food Library
             </NavLink>
+            <NavLink to="/log" className={({ isActive }) => 'nav-link' + (isActive ? ' active' : '')}>
+              Log
+            </NavLink>
           </nav>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <span style={{ color: '#a0a8c0', fontSize: '14px' }}>
@@ -135,6 +139,9 @@ const App = () => {
         } />
         <Route path="/foods/new" element={
           loggedInUser ? <AddFoodItem user={loggedInUser} /> : <Navigate to="/login" />
+        } />
+        <Route path="/log" element={
+          loggedInUser ? <Log user={loggedInUser} /> : <Navigate to="/login" />
         } />
       </Routes>
     </>
