@@ -34,19 +34,19 @@ Users select a goal (cut, bulk, or maintain) and input their daily calorie, prot
 
 Users can create, edit, and delete reusable food items. Each food item stores its name, calories, protein, carbs, fat, and serving unit (g, oz, cup, etc.).
 
-[View Image](https://imgur.com/a/c9HQZzM.gif)
+[View Demo](https://imgur.com/a/c9HQZzM.gif)
 
 ### Build a Meal [✅]
 
 Users create a meal (e.g. "Breakfast", "Post-workout") and add food items to it with a specific quantity/serving. MacroMate auto-calculates the meal's total macros from its food items.
 
-[View Image](https://imgur.com/a/o9UzMXU.gif)
+[View Demo](https://imgur.com/a/o9UzMXU.gif)
 
 ### Daily Macro Dashboard
 
 A dashboard shows all meals logged for the day, the running macro totals, and progress bars comparing consumed vs. target for calories, protein, carbs, and fat.
 
-[gif goes here]
+[View Demo](https://imgur.com/a/KDse5Su.gif)
 
 ### Meal History Log
 
@@ -58,7 +58,7 @@ Users can browse past meals by date to review what they ate and how their macros
 
 After logging meals, MacroMate shows how many calories and grams of each macro the user still has left for the day, helping them plan their next meal.
 
-[View Image](https://imgur.com/a/movM6Nh.gif)
+[View Demo](https://imgur.com/a/movM6Nh.gif)
 
 ### Meal Macro Breakdown
 
