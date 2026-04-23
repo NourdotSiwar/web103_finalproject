@@ -43,6 +43,8 @@ const createFoodItemsTable = async () => {
 
     CREATE TABLE IF NOT EXISTS food_items (
       id serial PRIMARY KEY,
+      user_id int REFERENCES users(id) ON DELETE CASCADE,
+      is_global boolean DEFAULT false,
       name varchar(100) NOT NULL,
       calories int NOT NULL,
       protein int NOT NULL,
@@ -126,9 +128,9 @@ const seedFoodItemsTable = async () => {
 
   for (const item of seedData.food_items) {
     const insertQuery = {
-      text: 'INSERT INTO food_items (id, name, calories, protein, carbs, fat, serving_unit) VALUES ($1, $2, $3, $4, $5, $6, $7)'
+      text: 'INSERT INTO food_items (id, user_id, is_global, name, calories, protein, carbs, fat, serving_unit) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)'
     }
-    const values = [item.id, item.name, item.calories, item.protein, item.carbs, item.fat, item.serving_unit]
+    const values = [item.id, item.user_id, item.is_global, item.name, item.calories, item.protein, item.carbs, item.fat, item.serving_unit]
 
     try {
       await pool.query(insertQuery, values)
