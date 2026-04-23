@@ -9,6 +9,7 @@ import CreateMeal from './pages/CreateMeal'
 import FoodLibrary from './pages/FoodLibrary'
 import AddFoodItem from './pages/AddFoodItem'
 import MealDetail from './pages/MealDetail'
+import NutriBot from './components/NutriBot/NutriBot'
 import Log from './pages/Log'
 
 const App = () => {
