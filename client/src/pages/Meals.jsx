@@ -2,7 +2,28 @@ import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router'
 import './Meals.css'
 
-const Meals = ({ user }) => {  // ← Receive user as prop
+const MacroBar = ({ protein, carbs, fat }) => {
+  const proteinCals = protein * 4
+  const carbsCals   = carbs   * 4
+  const fatCals     = fat     * 9
+  const total       = proteinCals + carbsCals + fatCals
+
+  if (total === 0) return null
+
+  const pPct = Math.round((proteinCals / total) * 100)
+  const cPct = Math.round((carbsCals   / total) * 100)
+  const fPct = Math.round((fatCals     / total) * 100)
+
+  return (
+    <div className="macro-inline">
+      <span className="macro-inline-protein">Protein {Math.round(protein)}g - {pPct}%</span>
+      <span className="macro-inline-carbs">Carbs {Math.round(carbs)}g - {cPct}%</span>
+      <span className="macro-inline-fat">Fat {Math.round(fat)}g - {fPct}%</span>
+    </div>
+  )
+}
+
+const Meals = ({ user }) => {
   const [meals, setMeals] = useState([])
   const [mealTotals, setMealTotals] = useState({})
   const [dateFilter, setDateFilter] = useState('')
@@ -16,7 +37,7 @@ const Meals = ({ user }) => {  // ← Receive user as prop
   const fetchMeals = async () => {
     try {
       const token = localStorage.getItem('token')
-      const res = await fetch(`/api/meals/user/${user.id}`, {  // ← Use user.id
+      const res = await fetch(`/api/meals/user/${user.id}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       const data = await res.json()
@@ -43,8 +64,13 @@ const Meals = ({ user }) => {  // ← Receive user as prop
         setError('Failed to load meal details. Please try again.')
         continue
       }
-      const calories = Math.round(items.reduce((sum, i) => sum + i.calories * i.quantity, 0))
-      totalsMap[meal.id] = { calories, itemCount: items.length }
+      totalsMap[meal.id] = {
+        calories:  Math.round(items.reduce((s, i) => s + (i.calories || 0) * i.quantity, 0)),
+        protein:   items.reduce((s, i) => s + (i.protein  || 0) * i.quantity, 0),
+        carbs:     items.reduce((s, i) => s + (i.carbs    || 0) * i.quantity, 0),
+        fat:       items.reduce((s, i) => s + (i.fat      || 0) * i.quantity, 0),
+        itemCount: items.length,
+      }
     }
     setMealTotals(totalsMap)
   }
@@ -54,7 +80,6 @@ const Meals = ({ user }) => {  // ← Receive user as prop
     return meal.date?.startsWith(dateFilter)
   })
 
-  // Group meals by date
   const grouped = filtered.reduce((acc, meal) => {
     const date = meal.date?.split('T')[0] ?? meal.date
     if (!acc[date]) acc[date] = []
@@ -103,19 +128,25 @@ const Meals = ({ user }) => {  // ← Receive user as prop
             <div key={date}>
               <p className="date-heading">{formatDate(date)}</p>
               <div className="card" style={{ padding: 0 }}>
-                {dateMeals.map((meal, idx) => (
-                  <div key={meal.id} className={`meal-list-item ${idx < dateMeals.length - 1 ? 'meal-list-item--border' : ''}`}>
-                    <div>
-                      <p className="meal-list-name">{meal.name}</p>
-                      <p className="meal-list-meta">
-                        {mealTotals[meal.id]?.calories ?? '—'} kcal &bull; {mealTotals[meal.id]?.itemCount ?? '—'} items
-                      </p>
+                {dateMeals.map((meal, idx) => {
+                  const t = mealTotals[meal.id]
+                  return (
+                    <div key={meal.id} className={`meal-list-item ${idx < dateMeals.length - 1 ? 'meal-list-item--border' : ''}`}>
+                      <div className="meal-list-left">
+                        <p className="meal-list-name">{meal.name}</p>
+                        <p className="meal-list-meta">
+                          {t?.calories ?? '—'} kcal &bull; {t?.itemCount ?? '—'} items
+                        </p>
+                        {t && (
+                          <MacroBar protein={t.protein} carbs={t.carbs} fat={t.fat} />
+                        )}
+                      </div>
+                      <button className="btn-outline btn-view-details" onClick={() => navigate(`/meals/${meal.id}`)}>
+                        👁 View Details
+                      </button>
                     </div>
-                    <button className="btn-outline btn-view-details" onClick={() => navigate(`/meals/${meal.id}`)}>
-                      👁 View Details
-                    </button>
-                  </div>
-                ))}
+                  )
+                })}
               </div>
             </div>
           ))

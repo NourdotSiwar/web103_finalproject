@@ -3,6 +3,7 @@ import './dotenv.js'
 import { fileURLToPath } from 'url'
 import path, { dirname } from 'path'
 import fs from 'fs'
+import bcrypt from 'bcrypt'
 
 const currentPath = fileURLToPath(import.meta.url)
 
@@ -103,10 +104,11 @@ const seedUsersTable = async () => {
   await createUsersTable()
 
   for (const user of seedData.users) {
+    const hashedPassword = await bcrypt.hash(user.password, 10)
     const insertQuery = {
       text: 'INSERT INTO users (id, email, password, name, goal, calorie_target, protein_target, carb_target, fat_target) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)'
     }
-    const values = [user.id, user.email, user.password, user.name, user.goal, user.calorie_target, user.protein_target, user.carb_target, user.fat_target]
+    const values = [user.id, user.email, hashedPassword, user.name, user.goal, user.calorie_target, user.protein_target, user.carb_target, user.fat_target]
 
     try {
       await pool.query(insertQuery, values)
