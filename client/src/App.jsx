@@ -145,6 +145,7 @@ const App = () => {
           loggedInUser ? <Log user={loggedInUser} /> : <Navigate to="/login" />
         } />
       </Routes>
+      {loggedInUser && <NutriBot />}
     </>
   )
 }
