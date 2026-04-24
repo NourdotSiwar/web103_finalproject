@@ -56,11 +56,11 @@ A dashboard shows all meals logged for the day, the running macro totals, and pr
 
 [View Demo](https://imgur.com/a/KDse5Su.gif)
 
-### Meal History Log
+### Meal History Log [✅]
 
 Users can browse past meals by date to review what they ate and how their macros looked on any given day.
 
-[gif goes here]
+[View Demo](https://imgur.com/a/1AGGffO.gif)
 
 ### Remaining Macros Calculator [✅]
 
