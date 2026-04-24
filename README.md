@@ -36,7 +36,7 @@ Backend: Node.js, Express, PostgreSQL (using Render)
 
 Users select a goal (cut, bulk, or maintain) and input their daily calorie, protein, carb, and fat targets. These targets are used across the app to track progress.
 
-[gif goes here]
+[View Demo](https://imgur.com/78KrsvF.gif)
 
 ### Food Item Library [✅]
 
@@ -68,11 +68,11 @@ After logging meals, MacroMate shows how many calories and grams of each macro t
 
 [View Demo](https://imgur.com/a/movM6Nh.gif)
 
-### Meal Macro Breakdown
+### Meal Macro Breakdown [✅]
 
 Each meal displays a visual macro breakdown (percentage of calories from protein, carbs, and fat) so users can quickly spot imbalanced meals.
 
-[gif goes here]
+[View Demo](https://imgur.com/a/ZTW7Bz1.gif)
 
 ## Custom Features
 
