@@ -55,11 +55,11 @@ A dashboard shows all meals logged for the day, the running macro totals, and pr
 
 [View Demo](https://imgur.com/a/KDse5Su.gif)
 
-### Meal History Log
+### Meal History Log [✅]
 
 Users can browse past meals by date to review what they ate and how their macros looked on any given day.
 
-[gif goes here]
+[View Demo](https://imgur.com/a/1AGGffO.gif)
 
 ### Remaining Macros Calculator [✅]
 
@@ -67,11 +67,11 @@ After logging meals, MacroMate shows how many calories and grams of each macro t
 
 [View Demo](https://imgur.com/a/movM6Nh.gif)
 
-### Meal Macro Breakdown
+### Meal Macro Breakdown [✅]
 
 Each meal displays a visual macro breakdown (percentage of calories from protein, carbs, and fat) so users can quickly spot imbalanced meals.
 
-[gif goes here]
+[View Demo](https://imgur.com/a/ZTW7Bz1.gif)
 
 ## Custom Features
 
