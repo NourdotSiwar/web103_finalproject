@@ -103,9 +103,13 @@ const MealDetail = () => {
     fetchItems()
   }, [])
 
+  const authHeaders = () => ({
+    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+  })
+
   const fetchMeal = async () => {
     try {
-      const res = await fetch(`/api/meals/${id}`)
+      const res = await fetch(`/api/meals/${id}`, { headers: authHeaders() })
       const data = await res.json()
       if (res.ok && data) {
         setMeal(data)
@@ -118,7 +122,7 @@ const MealDetail = () => {
 
   const fetchItems = async () => {
     try {
-      const res = await fetch(`/api/meal-food-items/meal/${id}`)
+      const res = await fetch(`/api/meal-food-items/meal/${id}`, { headers: authHeaders() })
       const data = await res.json()
       if (res.ok && Array.isArray(data)) setItems(data)
       else setError('Failed to load food items.')
@@ -130,11 +134,10 @@ const MealDetail = () => {
   const handleEdit = async () => {
     const res = await fetch(`/api/meals/${id}`, {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', ...authHeaders() },
       body: JSON.stringify({
         name: editForm.name,
         date: editForm.date,
-        user_id: meal.user_id,
         notes: meal.notes || '',
       }),
     })
@@ -148,7 +151,7 @@ const MealDetail = () => {
   }
 
   const handleDelete = async () => {
-    const res = await fetch(`/api/meals/${id}`, { method: 'DELETE' })
+    const res = await fetch(`/api/meals/${id}`, { method: 'DELETE', headers: authHeaders() })
     if (res.ok) navigate('/meals')
     else setError('Failed to delete meal.')
   }
