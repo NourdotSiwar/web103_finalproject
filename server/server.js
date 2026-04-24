@@ -4,9 +4,10 @@ import userRoutes from './routes/users.js'
 import foodItemRoutes from './routes/foodItems.js'
 import mealRoutes from './routes/meals.js'
 import mealFoodItemRoutes from './routes/mealFoodItems.js'
-import authRoutes from './routes/auth.js'  // ← ADD THIS
+import authRoutes from './routes/auth.js'
 import chatbotRoutes from './routes/chatbot.js'
 import ResetController from './controllers/reset.js'
+import authenticateToken from './middleware/auth.js'
 
 const app = express()
 
@@ -17,12 +18,13 @@ app.get('/', (req, res) => {
     res.status(200).send('<h1 style="text-align: center; margin-top: 50px;">MacroMate API</h1>')
 })
 
-app.use('/api/users', userRoutes)
-app.use('/api/food-items', foodItemRoutes)
-app.use('/api/meals', mealRoutes)
-app.use('/api/meal-food-items', mealFoodItemRoutes)
-app.use('/api/auth', authRoutes)  // ← ADD THIS LINE
-app.use('/api/chatbot', chatbotRoutes)
+app.use('/api/auth', authRoutes)
+
+app.use('/api/users', authenticateToken, userRoutes)
+app.use('/api/food-items', authenticateToken, foodItemRoutes)
+app.use('/api/meals', authenticateToken, mealRoutes)
+app.use('/api/meal-food-items', authenticateToken, mealFoodItemRoutes)
+app.use('/api/chatbot', authenticateToken, chatbotRoutes)
 app.post('/api/reset', ResetController.resetDatabase)
 
 const PORT = process.env.PORT || 3001

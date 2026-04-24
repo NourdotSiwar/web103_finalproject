@@ -2,7 +2,8 @@ import { pool } from '../config/database.js'
 
 const createMeal = async (req, res) => {
   try {
-    const { user_id, name, date, notes } = req.body
+    const { name, date, notes } = req.body
+    const user_id = req.user.id
 
     const results = await pool.query(
       'INSERT INTO meals (user_id, name, date, notes) \
@@ -57,14 +58,19 @@ const getMealsByUser = async (req, res) => {
 const updateMeal = async (req, res) => {
   try {
     const { id } = req.params
-    const { user_id, name, date, notes } = req.body
+    const { name, date, notes } = req.body
+    const user_id = req.user.id
 
     const results = await pool.query(
-      'UPDATE meals SET user_id = $1, name = $2, date = $3, notes = $4 \
-      WHERE id = $5 \
+      'UPDATE meals SET name = $1, date = $2, notes = $3 \
+      WHERE id = $4 AND user_id = $5 \
       RETURNING *',
-      [user_id, name, date, notes, id]
+      [name, date, notes, id, user_id]
     )
+
+    if (results.rows.length === 0) {
+      return res.status(403).json({ error: 'You can only update your own meals' })
+    }
 
     res.status(200).json(results.rows[0])
   } catch (error) {

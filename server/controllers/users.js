@@ -41,7 +41,7 @@ const getUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   try {
-    const { id } = req.params
+    const id = req.user.id
     const { goal, calorie_target, protein_target, carb_target, fat_target } = req.body
 
     const results = await pool.query(
@@ -59,7 +59,7 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   try {
-    const { id } = req.params
+    const id = req.user.id
 
     await pool.query('DELETE FROM users WHERE id = $1', [id])
 
