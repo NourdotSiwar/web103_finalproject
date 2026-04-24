@@ -27,7 +27,6 @@ Backend: Node.js, Express, PostgreSQL (using Render)
 [instructions go here]
 
 
-
 ## Features
 
 ### !! NOTE !! We have been told that if we have GIFs for at least 5 features, we no longer need to add GIFs for the rest of the features
@@ -36,7 +35,7 @@ Backend: Node.js, Express, PostgreSQL (using Render)
 
 Users select a goal (cut, bulk, or maintain) and input their daily calorie, protein, carb, and fat targets. These targets are used across the app to track progress.
 
-[gif goes here]
+[View Demo](https://imgur.com/a/78KrsvF.gif)
 
 ### Food Item Library [✅]
 
