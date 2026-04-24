@@ -36,7 +36,7 @@ Backend: Node.js, Express, PostgreSQL (using Render)
 
 Users select a goal (cut, bulk, or maintain) and input their daily calorie, protein, carb, and fat targets. These targets are used across the app to track progress.
 
-[View Demo](https://imgur.com/78KrsvF.gif)
+[View Demo](https://imgur.com/a/78KrsvF.gif)
 
 ### Food Item Library [✅]
 
