@@ -32,7 +32,7 @@ Backend: Node.js, Express, PostgreSQL (using Render)
 
 ### !! NOTE !! We have been told that if we have GIFs for at least 5 features, we no longer need to add GIFs for the rest of the features
 
-### Set Your Macro Goal
+### Set Your Macro Goal [✅]
 
 Users select a goal (cut, bulk, or maintain) and input their daily calorie, protein, carb, and fat targets. These targets are used across the app to track progress.
 
@@ -50,7 +50,7 @@ Users create a meal (e.g. "Breakfast", "Post-workout") and add food items to it 
 
 [View Demo](https://imgur.com/a/o9UzMXU.gif)
 
-### Daily Macro Dashboard
+### Daily Macro Dashboard [✅]
 
 A dashboard shows all meals logged for the day, the running macro totals, and progress bars comparing consumed vs. target for calories, protein, carbs, and fat.
 
