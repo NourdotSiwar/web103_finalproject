@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './Dashboard.css'
 
 const Dashboard = ({ user }) => {
+  const navigate = useNavigate()
   const [meals, setMeals] = useState([])
   const [totals, setTotals] = useState({ calories: 0, protein: 0, carbs: 0, fat: 0 })
   const [loading, setLoading] = useState(true)
@@ -151,7 +153,7 @@ const Dashboard = ({ user }) => {
         <h2 className="section-heading">Today's Meals</h2>
         <button 
           className="btn-primary" 
-          onClick={() => window.location.href = '/meals/new'}
+          onClick={() => navigate('/meals/new')}
         >
           + Add Meal
         </button>
@@ -163,7 +165,7 @@ const Dashboard = ({ user }) => {
             <p>No meals logged for today</p>
             <button 
               className="btn-primary" 
-              onClick={() => window.location.href = '/meals/new'}
+              onClick={() => navigate('/meals/new')}
               style={{ marginTop: '16px' }}
             >
               Log Your First Meal

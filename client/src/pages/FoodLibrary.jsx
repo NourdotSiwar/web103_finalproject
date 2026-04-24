@@ -32,9 +32,9 @@ const FoodLibrary = () => {
 
   const handleDelete = async (id) => {
     const token = localStorage.getItem('token')
-    const res = await fetch(`/api/food-items/${id}`, { 
+    const res = await fetch(`/api/food-items/${id}`, {
       method: 'DELETE',
-      headers: { 
+      headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
       }
@@ -44,7 +44,7 @@ const FoodLibrary = () => {
       setDeleteError(null)
     } else {
       const data = await res.json()
-      setDeleteError(data.error || 'This food item is used in a meal and cannot be deleted.')
+      setDeleteError(data.error || 'Failed to delete food item.')
     }
   }
 
@@ -83,6 +83,10 @@ const FoodLibrary = () => {
       </div>
 
       {error && <p className="error-message">{error}</p>}
+
+      <div className="info-banner">
+        Global food items are shared across all users and cannot be edited or deleted. You can only manage food items you created yourself.
+      </div>
 
       <div className="card" style={{ marginBottom: 24 }}>
         <div className="search-wrapper">
@@ -136,8 +140,14 @@ const FoodLibrary = () => {
               <span className="macro-fat">Fat: {item.fat}g</span>
             </div>
             <div className="food-card-actions">
-              <button className="btn-outline btn-edit" onClick={() => setEditItem(item)}>✏ Edit</button>
-              <button className="btn-danger" onClick={() => handleDelete(item.id)}>🗑 Delete</button>
+              {item.is_global ? (
+                <span className="global-badge">Global</span>
+              ) : (
+                <>
+                  <button className="btn-outline btn-edit" onClick={() => setEditItem(item)}>✏ Edit</button>
+                  <button className="btn-danger" onClick={() => handleDelete(item.id)}>🗑 Delete</button>
+                </>
+              )}
             </div>
           </div>
         ))}
