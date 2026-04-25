@@ -9,6 +9,9 @@ import chatbotRoutes from './routes/chatbot.js'
 import ResetController from './controllers/reset.js'
 import authenticateToken from './middleware/auth.js'
 
+import dotenv from 'dotenv'
+dotenv.config()
+
 const app = express()
 
 app.use(express.json())
