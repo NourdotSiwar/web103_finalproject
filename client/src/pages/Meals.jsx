@@ -2,6 +2,10 @@ import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router'
 import './Meals.css'
 
+const API_URL = import.meta.env.PROD
+  ? 'https://web103-server.onrender.com/api'
+  : '/api'
+
 const MacroBar = ({ protein, carbs, fat }) => {
   const proteinCals = protein * 4
   const carbsCals   = carbs   * 4
@@ -37,7 +41,7 @@ const Meals = ({ user }) => {
   const fetchMeals = async () => {
     try {
       const token = localStorage.getItem('token')
-      const res = await fetch(`/api/meals/user/${user.id}`, {
+      const res = await fetch(`${API_URL}/meals/user/${user.id}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       const data = await res.json()
@@ -56,7 +60,7 @@ const Meals = ({ user }) => {
     const token = localStorage.getItem('token')
     const totalsMap = {}
     for (const meal of mealList) {
-      const res = await fetch(`/api/meal-food-items/meal/${meal.id}`, {
+      const res = await fetch(`${API_URL}/meal-food-items/meal/${meal.id}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       const items = await res.json()

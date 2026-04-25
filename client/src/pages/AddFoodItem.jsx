@@ -2,6 +2,10 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import './AddFoodItem.css'
 
+const API_URL = import.meta.env.PROD
+  ? 'https://web103-server.onrender.com/api'
+  : '/api'
+
 const AddFoodItem = () => {
   const navigate = useNavigate()
   const [form, setForm] = useState({
@@ -23,7 +27,7 @@ const AddFoodItem = () => {
     setError('')
     
     const token = localStorage.getItem('token')
-    const response = await fetch('/api/food-items', {
+    const response = await fetch(`${API_URL}/food-items`, {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',

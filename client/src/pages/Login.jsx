@@ -2,6 +2,10 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import './Login.css'
 
+const API_URL = import.meta.env.PROD
+  ? 'https://web103-server.onrender.com/api'
+  : '/api'
+
 const Login = ({ setLoggedInUser }) => {
   const [isLogin, setIsLogin] = useState(true)
   const [form, setForm] = useState({ email: '', password: '', name: '' })
@@ -12,7 +16,7 @@ const Login = ({ setLoggedInUser }) => {
     e.preventDefault()
     setError('')
     
-    const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register'
+    const endpoint = isLogin ? `${API_URL}/auth/login` : `${API_URL}/auth/register`
     const response = await fetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

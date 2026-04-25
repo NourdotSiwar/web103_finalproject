@@ -2,6 +2,10 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Dashboard.css'
 
+const API_URL = import.meta.env.PROD
+  ? 'https://web103-server.onrender.com/api'
+  : '/api'
+
 const Dashboard = ({ user }) => {
   const navigate = useNavigate()
   const [meals, setMeals] = useState([])
@@ -16,7 +20,7 @@ const Dashboard = ({ user }) => {
   const fetchTodaysMeals = async () => {
     setLoading(true)
     const token = localStorage.getItem('token')
-    const response = await fetch(`/api/meals/user/${user.id}`, {
+    const response = await fetch(`${API_URL}/meals/user/${user.id}`, {
       headers: { 'Authorization': `Bearer ${token}` }
     })
     const data = await response.json()
@@ -33,7 +37,7 @@ const Dashboard = ({ user }) => {
     
     let cal = 0, pro = 0, carb = 0, fat = 0
     for (const meal of todaysMeals) {
-      const itemsRes = await fetch(`/api/meal-food-items/meal/${meal.id}`, {
+      const itemsRes = await fetch(`${API_URL}/meal-food-items/meal/${meal.id}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       const items = await itemsRes.json()

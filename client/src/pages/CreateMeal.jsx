@@ -2,6 +2,10 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import './CreateMeal.css'
 
+const API_URL = import.meta.env.PROD
+  ? 'https://web103-server.onrender.com/api'
+  : '/api'
+
 const COLORS = {
   Protein: '#3b82f6',
   Carbs:   '#f59e0b',
@@ -222,7 +226,7 @@ const CreateMeal = ({ user }) => {
     const fetchFoodItems = async () => {
       try {
         const token = localStorage.getItem('token')
-        const res = await fetch('/api/food-items', {
+        const res = await fetch(`${API_URL}/food-items`, {
           headers: { 'Authorization': `Bearer ${token}` }
         })
         const data = await res.json()
@@ -264,7 +268,7 @@ const CreateMeal = ({ user }) => {
     e.preventDefault()
     const token = localStorage.getItem('token')
 
-    const mealRes = await fetch('/api/meals', {
+    const mealRes = await fetch(`${API_URL}/meals`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -275,7 +279,7 @@ const CreateMeal = ({ user }) => {
     const meal = await mealRes.json()
 
     for (const item of addedItems) {
-      await fetch(`/api/meal-food-items/meal/${meal.id}`, {
+      await fetch(`${API_URL}/meal-food-items/meal/${meal.id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -2,6 +2,10 @@ import { useState, useEffect, useCallback } from 'react'
 import MultiDatePicker from '../components/MultiDatePicker'
 import './Log.css'
 
+const API_URL = import.meta.env.PROD
+  ? 'https://web103-server.onrender.com/api'
+  : '/api'
+
 const today = new Date().toISOString().split('T')[0]
 
 const COLORS = { Protein: '#3b82f6', Carbs: '#f59e0b', Fat: '#ef4444' }
@@ -176,7 +180,7 @@ const Log = ({ user }) => {
   const fetchLog = useCallback(async () => {
     try {
       const token = localStorage.getItem('token')
-      const res = await fetch(`/api/meals/user/${user.id}`, {
+      const res = await fetch(`${API_URL}/meals/user/${user.id}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       const meals = await res.json()
@@ -191,7 +195,7 @@ const Log = ({ user }) => {
 
       for (const date of Object.keys(map)) {
         for (let i = 0; i < map[date].length; i++) {
-          const r = await fetch(`/api/meal-food-items/meal/${map[date][i].id}`, {
+          const r = await fetch(`${API_URL}/meal-food-items/meal/${map[date][i].id}`, {
             headers: { 'Authorization': `Bearer ${token}` }
           })
           const items = await r.json()

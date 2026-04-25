@@ -13,7 +13,7 @@ import NutriBot from './components/NutriBot/NutriBot'
 import Log from './pages/Log'
 
 const API_URL = import.meta.env.PROD
-  ? 'https://web103-server.onrender.com'
+  ? 'https://web103-server.onrender.com/api'
   : '/api';
   
 const App = () => {

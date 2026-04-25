@@ -2,6 +2,10 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router'
 import './MealDetail.css'
 
+const API_URL = import.meta.env.PROD
+  ? 'https://web103-server.onrender.com/api'
+  : '/api'
+
 const COLORS = {
   Protein: '#3b82f6',
   Carbs:   '#f59e0b',
@@ -109,7 +113,7 @@ const MealDetail = () => {
 
   const fetchMeal = async () => {
     try {
-      const res = await fetch(`/api/meals/${id}`, { headers: authHeaders() })
+      const res = await fetch(`${API_URL}/meals/${id}`, { headers: authHeaders() })
       const data = await res.json()
       if (res.ok && data) {
         setMeal(data)
@@ -122,7 +126,7 @@ const MealDetail = () => {
 
   const fetchItems = async () => {
     try {
-      const res = await fetch(`/api/meal-food-items/meal/${id}`, { headers: authHeaders() })
+      const res = await fetch(`${API_URL}/meal-food-items/meal/${id}`, { headers: authHeaders() })
       const data = await res.json()
       if (res.ok && Array.isArray(data)) setItems(data)
       else setError('Failed to load food items.')
@@ -132,7 +136,7 @@ const MealDetail = () => {
   }
 
   const handleEdit = async () => {
-    const res = await fetch(`/api/meals/${id}`, {
+    const res = await fetch(`${API_URL}/meals/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json', ...authHeaders() },
       body: JSON.stringify({
@@ -151,7 +155,7 @@ const MealDetail = () => {
   }
 
   const handleDelete = async () => {
-    const res = await fetch(`/api/meals/${id}`, { method: 'DELETE', headers: authHeaders() })
+    const res = await fetch(`${API_URL}/meals/${id}`, { method: 'DELETE', headers: authHeaders() })
     if (res.ok) navigate('/meals')
     else setError('Failed to delete meal.')
   }

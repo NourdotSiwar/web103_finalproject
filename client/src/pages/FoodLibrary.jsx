@@ -2,6 +2,10 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router'
 import './FoodLibrary.css'
 
+const API_URL = import.meta.env.PROD
+  ? 'https://web103-server.onrender.com/api'
+  : '/api'
+
 const FoodLibrary = () => {
   const [foodItems, setFoodItems] = useState([])
   const [search, setSearch] = useState('')
@@ -16,7 +20,7 @@ const FoodLibrary = () => {
   const fetchFoodItems = async () => {
     try {
       const token = localStorage.getItem('token')
-      const res = await fetch('/api/food-items', {
+      const res = await fetch(`${API_URL}/food-items`, {
         headers: { 
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -32,7 +36,7 @@ const FoodLibrary = () => {
 
   const handleDelete = async (id) => {
     const token = localStorage.getItem('token')
-    const res = await fetch(`/api/food-items/${id}`, {
+    const res = await fetch(`${API_URL}/food-items/${id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -54,7 +58,7 @@ const FoodLibrary = () => {
 
   const handleEditSave = async () => {
     const token = localStorage.getItem('token')
-    await fetch(`/api/food-items/${editItem.id}`, {
+    await fetch(`${API_URL}/food-items/${editItem.id}`, {
       method: 'PATCH',
       headers: { 
         'Content-Type': 'application/json',

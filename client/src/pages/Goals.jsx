@@ -1,5 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import './Goals.css'
+
+const API_URL = import.meta.env.PROD
+  ? 'https://web103-server.onrender.com/api'
+  : '/api'
 
 const Goals = ({ user, setUser }) => {
   const [form, setForm] = useState({
@@ -43,7 +47,7 @@ const Goals = ({ user, setUser }) => {
     if (!validateTargets()) return
     
     const token = localStorage.getItem('token')
-    const response = await fetch(`/api/users/${user.id}`, {
+    const response = await fetch(`${API_URL}/users/${user.id}`, {
       method: 'PATCH',
       headers: { 
         'Content-Type': 'application/json',
