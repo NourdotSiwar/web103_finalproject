@@ -12,7 +12,13 @@ import authenticateToken from './middleware/auth.js'
 const app = express()
 
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+  origin: [
+    'http://localhost:5173', // local dev
+    'https://web103-client.onrender.com' // your frontend
+  ],
+  credentials: true
+}))
 
 app.get('/', (req, res) => {
     res.status(200).send('<h1 style="text-align: center; margin-top: 50px;">MacroMate API</h1>')

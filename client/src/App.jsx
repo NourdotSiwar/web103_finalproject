@@ -12,6 +12,10 @@ import MealDetail from './pages/MealDetail'
 import NutriBot from './components/NutriBot/NutriBot'
 import Log from './pages/Log'
 
+const API_URL = import.meta.env.PROD
+  ? 'https://web103-server.onrender.com'
+  : '/api';
+  
 const App = () => {
   const [loggedInUser, setLoggedInUser] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -27,7 +31,7 @@ const App = () => {
       }
       
       try {
-        const response = await fetch(`/api/users/${userId}`, {
+        const response = await fetch(`${API_URL}/users/${userId}`, {
           headers: { 
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
