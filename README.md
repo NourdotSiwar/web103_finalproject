@@ -4,7 +4,7 @@ CodePath WEB103 Final Project
 
 Designed and developed by: Nour Siwar, Diwash Kuskusmiya, Yens Castro, Derrick Woodall
 
-🔗 Link to deployed app: 
+[🔗 Link to deployed app](https://web103-client.onrender.com/ )
 
 ## About
 
@@ -24,8 +24,7 @@ Backend: Node.js, Express, PostgreSQL (using Render)
 
 ## Installation Instructions
 
-[instructions go here]
-
+Simply click on the deployed link and make an account to register.
 
 ## Features
 

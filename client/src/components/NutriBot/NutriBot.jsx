@@ -1,6 +1,10 @@
 import { useState, useRef, useEffect } from 'react'
 import './NutriBot.css'
 
+const API_URL = import.meta.env.PROD
+  ? 'https://web103-server.onrender.com/api'
+  : '/api'
+
 const NutriBot = () => {
   const [open, setOpen] = useState(false)
   const [messages, setMessages] = useState([
@@ -31,7 +35,7 @@ const NutriBot = () => {
 
     try {
       const token = localStorage.getItem('token')
-      const res = await fetch('/api/chatbot', {
+      const res = await fetch(`${API_URL}/chatbot`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
