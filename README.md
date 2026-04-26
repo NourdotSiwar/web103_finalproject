@@ -6,6 +6,8 @@ Designed and developed by: Nour Siwar, Diwash Kuskusmiya, Yens Castro, Derrick W
 
 [🔗 Link to deployed app](https://web103-client.onrender.com/ )
 
+🔗 [Here's a GIF walkthrough of the final project](web103_final.gif)
+
 ## About
 
 ### Description and Purpose
@@ -82,10 +84,6 @@ This has been implemented by adding try/catch in all controllers, error states i
 
 The web app includes a slide-out pane or modal as appropriate for your use case that pops up and covers the page content without navigating away from the current page. This was implemented by having SelectFoodModal in CreateMeal, edit modal in FoodLibrary, day modal in Log, and NutriBot pane
 
-### Unique field in join table [✅]
-
-The web app includes a unique field within the join table. This was implemented by adding the "quantity" column in meal_food_items beyond the two foreign keys
-
 ### Custom non-RESTful route [✅]
 
 The web app includes a custom non-RESTful route with corresponding controller actions. This was implemented by adding routes like /api/auth/login, /api/auth/register, /api/meals/user/:userId, /api/chatbot.
@@ -116,10 +114,6 @@ NutriBot is an AI-powered assistant that gives guidance on macronutrient intake.
 ### Pages require login [✅]
 
 This is implemented by using App.jsx to redirect unauthenticated users to /login for all routes
-
-### Loading spinner [✅]
-
-This was partially implemented by having the dashboard showing "Loading..." text, and NutriBot has animated dots
 
 ### Data Visualization [✅]
 
